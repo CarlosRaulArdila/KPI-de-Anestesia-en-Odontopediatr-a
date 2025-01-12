@@ -1,0 +1,51 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diagrama de Caja - Tiempos de Recuperación</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Distribución de Tiempos de Recuperación</h1>
+    <div id="boxplot" style="width: 100%; height: 500px;"></div>
+
+    <script>
+        // Datos simulados de tiempos de recuperación
+        const tiemposRecuperacion = [
+            12, 15, 14, 16, 10, 18, 14, 22, 25, 20, 
+            30, 11, 13, 15, 10, 40, 14, 15, 23, 18
+        ];
+
+        // Configuración del diagrama de caja
+        const trace = {
+            y: tiemposRecuperacion,
+            type: 'box',
+            name: 'Tiempos de Recuperación',
+            boxpoints: 'outliers', // Muestra los valores atípicos
+            marker: {
+                color: 'rgba(7,40,89,0.5)'
+            },
+            line: {
+                color: 'rgba(7,40,89,1)'
+            }
+        };
+
+        // Configuración del diseño
+        const layout = {
+            title: 'Diagrama de Caja de Tiempos de Recuperación',
+            yaxis: {
+                title: 'Tiempo (en días)',
+                zeroline: false
+            },
+            xaxis: {
+                title: 'Categoría'
+            },
+            margin: { t: 50, b: 50 }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('boxplot', [trace], layout);
+    </script>
+</body>
+</html>

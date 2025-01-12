@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Indicador de Semáforo - Cumplimiento de Protocolos</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Cumplimiento de Protocolos de Seguridad</h1>
+    <div id="gaugeChart" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Nivel de cumplimiento actual (simulado)
+        const cumplimiento = 92; // Cambia este valor según los datos reales
+
+        // Configuración del gráfico de indicador
+        const data = [{
+            type: "indicator",
+            mode: "gauge+number",
+            value: cumplimiento,
+            title: { text: "Nivel de Cumplimiento (%)", font: { size: 24 } },
+            gauge: {
+                axis: { range: [0, 100], tickwidth: 1, tickcolor: "darkgray" },
+                bar: { color: "darkblue" },
+                bgcolor: "white",
+                borderwidth: 2,
+                bordercolor: "gray",
+                steps: [
+                    { range: [0, 85], color: "red" },       // Rojo: <85%
+                    { range: [85, 95], color: "yellow" },   // Amarillo: 85-94%
+                    { range: [95, 100], color: "green" }    // Verde: ≥95%
+                ],
+                threshold: {
+                    line: { color: "black", width: 4 },
+                    thickness: 0.75,
+                    value: cumplimiento
+                }
+            }
+        }];
+
+        // Configuración del diseño
+        const layout = {
+            width: 500,
+            height: 400,
+            margin: { t: 25, r: 25, l: 25, b: 25 },
+            paper_bgcolor: "white",
+            font: { color: "black", family: "Arial" }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('gaugeChart', data, layout);
+    </script>
+</body>
+</html>

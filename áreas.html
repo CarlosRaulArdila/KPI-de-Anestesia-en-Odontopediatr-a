@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Áreas - Tasa de Eventos Adversos</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Tasa de Eventos Adversos Postanestésicos</h1>
+    <div id="areaChart" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Meses del último año
+        const meses = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        // Datos de eventos adversos por tipo (simulados)
+        const nauseaVomito = [5, 6, 4, 7, 8, 5, 4, 6, 5, 7, 8, 6]; // Por cada 100 procedimientos
+        const dolorPostoperatorio = [3, 4, 3, 4, 5, 4, 3, 4, 3, 5, 4, 3];
+        const reaccionesAlergicas = [1, 2, 1, 2, 1, 1, 2, 2, 1, 2, 1, 1];
+        const otros = [2, 3, 2, 3, 3, 2, 2, 3, 3, 2, 3, 2];
+
+        // Configuración de trazas para el gráfico de áreas
+        const trace1 = {
+            x: meses,
+            y: nauseaVomito,
+            name: 'Náusea y Vómito',
+            type: 'scatter',
+            fill: 'tonexty',
+            mode: 'none',
+            marker: { color: 'rgba(31, 119, 180, 0.8)' }
+        };
+
+        const trace2 = {
+            x: meses,
+            y: dolorPostoperatorio,
+            name: 'Dolor Postoperatorio',
+            type: 'scatter',
+            fill: 'tonexty',
+            mode: 'none',
+            marker: { color: 'rgba(255, 127, 14, 0.8)' }
+        };
+
+        const trace3 = {
+            x: meses,
+            y: reaccionesAlergicas,
+            name: 'Reacciones Alérgicas',
+            type: 'scatter',
+            fill: 'tonexty',
+            mode: 'none',
+            marker: { color: 'rgba(44, 160, 44, 0.8)' }
+        };
+
+        const trace4 = {
+            x: meses,
+            y: otros,
+            name: 'Otros',
+            type: 'scatter',
+            fill: 'tonexty',
+            mode: 'none',
+            marker: { color: 'rgba(214, 39, 40, 0.8)' }
+        };
+
+        // Configuración del diseño
+        const layout = {
+            title: 'Tendencia de Eventos Adversos Postanestésicos (Último Año)',
+            xaxis: {
+                title: 'Meses',
+                tickangle: -45
+            },
+            yaxis: {
+                title: 'Eventos por cada 100 procedimientos'
+            },
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            },
+            margin: { t: 50, b: 100 }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('areaChart', [trace1, trace2, trace3, trace4], layout);
+    </script>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras Horizontales - Capacitación Continua</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Capacitación Continua del Personal Anestésico</h1>
+    <div id="barChart" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Nombres de los profesionales (simulados)
+        const profesionales = [
+            'Dr. Pérez', 'Dra. López', 'Dr. González', 
+            'Dra. Martínez', 'Dr. Rodríguez', 'Dra. Fernández'
+        ];
+
+        // Porcentaje de capacitación continua por profesional (simulado)
+        const capacitacion = [95, 88, 100, 92, 85, 98];
+
+        // Línea objetivo (100% de capacitación)
+        const objetivo = Array(profesionales.length).fill(100);
+
+        // Configuración del gráfico de barras horizontales
+        const trace1 = {
+            x: capacitacion,
+            y: profesionales,
+            type: 'bar',
+            orientation: 'h', // Barras horizontales
+            marker: {
+                color: 'rgba(31, 119, 180, 0.8)'
+            },
+            name: 'Capacitación Realizada (%)'
+        };
+
+        // Configuración de la línea objetivo
+        const trace2 = {
+            x: objetivo,
+            y: profesionales,
+            mode: 'lines',
+            line: {
+                color: 'red',
+                width: 2,
+                dash: 'dash' // Línea discontinua
+            },
+            name: 'Objetivo (100%)'
+        };
+
+        // Configuración del diseño
+        const layout = {
+            title: 'Porcentaje de Profesionales Capacitados',
+            xaxis: {
+                title: 'Porcentaje de Capacitación (%)',
+                range: [0, 110] // Extiende un poco más allá del 100%
+            },
+            yaxis: {
+                title: 'Profesionales'
+            },
+            barmode: 'overlay', // Superposición de la línea en las barras
+            margin: { t: 50, l: 100 },
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('barChart', [trace1, trace2], layout);
+    </script>
+</body>
+</html>

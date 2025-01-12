@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras Apiladas - Consumo de Anestésicos</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Consumo de Anestésicos por Procedimiento</h1>
+    <div id="stackedBarChart" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Tipos de procedimientos
+        const procedimientos = [
+            'Cirugía General', 
+            'Ortopédica', 
+            'Cardíaca', 
+            'Neurológica', 
+            'Pediátrica'
+        ];
+
+        // Consumo promedio de diferentes anestésicos (simulado)
+        const Propofol = [20, 15, 25, 30, 10];
+        const Sevoflurano = [10, 20, 15, 10, 5];
+        const Remifentanilo = [5, 10, 20, 25, 10];
+        const Ketamina = [10, 5, 10, 15, 5];
+
+        // Configuración de trazas para el gráfico de barras apiladas
+        const trace1 = {
+            x: procedimientos,
+            y: Propofol,
+            name: 'Propofol',
+            type: 'bar',
+            marker: { color: 'rgba(31, 119, 180, 0.8)' }
+        };
+
+        const trace2 = {
+            x: procedimientos,
+            y: Sevoflurano,
+            name: 'Sevoflurano',
+            type: 'bar',
+            marker: { color: 'rgba(255, 127, 14, 0.8)' }
+        };
+
+        const trace3 = {
+            x: procedimientos,
+            y: Remifentanilo,
+            name: 'Remifentanilo',
+            type: 'bar',
+            marker: { color: 'rgba(44, 160, 44, 0.8)' }
+        };
+
+        const trace4 = {
+            x: procedimientos,
+            y: Ketamina,
+            name: 'Ketamina',
+            type: 'bar',
+            marker: { color: 'rgba(214, 39, 40, 0.8)' }
+        };
+
+        // Configuración del diseño
+        const layout = {
+            title: 'Consumo Promedio de Anestésicos por Procedimiento',
+            barmode: 'stack', // Apilamiento de barras
+            xaxis: {
+                title: 'Tipo de Procedimiento'
+            },
+            yaxis: {
+                title: 'Consumo Promedio (ml o mg)'
+            },
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('stackedBarChart', [trace1, trace2, trace3, trace4], layout);
+    </script>
+</body>
+</html>

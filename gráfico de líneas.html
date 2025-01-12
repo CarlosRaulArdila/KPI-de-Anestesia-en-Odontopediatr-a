@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Líneas - Costo Promedio por Procedimiento</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Costo Promedio por Procedimiento Anestésico</h1>
+    <div id="lineChart" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Meses del año
+        const meses = [
+            'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 
+            'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+        ];
+
+        // Costo promedio mensual por procedimiento (simulado en dólares)
+        const costos = [250, 260, 240, 245, 255, 270, 260, 250, 265, 275, 280, 270];
+
+        // Calcula los indicadores de cambio respecto al mes anterior
+        const indicadores = costos.map((costo, i) => {
+            if (i === 0) return null; // Sin comparación para el primer mes
+            const cambio = costo - costos[i - 1];
+            return cambio > 0 ? '▲' : cambio < 0 ? '▼' : '—';
+        });
+
+        // Configuración de la línea de costos
+        const trace1 = {
+            x: meses,
+            y: costos,
+            type: 'scatter',
+            mode: 'lines+markers+text',
+            name: 'Costo Promedio ($)',
+            text: indicadores,
+            textposition: 'top center',
+            line: {
+                color: 'rgba(31, 119, 180, 0.8)',
+                width: 2
+            },
+            marker: { size: 8 }
+        };
+
+        // Configuración del diseño
+        const layout = {
+            title: 'Evolución Mensual del Costo Promedio por Procedimiento Anestésico',
+            xaxis: {
+                title: 'Meses',
+                tickangle: -45
+            },
+            yaxis: {
+                title: 'Costo Promedio ($)',
+                range: [200, 300] // Ajustar según los datos reales
+            },
+            margin: { t: 50, b: 100 },
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('lineChart', [trace1], layout);
+    </script>
+</body>
+</html>

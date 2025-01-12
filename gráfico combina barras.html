@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráfico de Barras con Línea de Tendencia - Tasa de Éxito en la Inducción Anestésica</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+</head>
+<body>
+    <h1>Tasa de Éxito en la Inducción Anestésica</h1>
+    <div id="successRateChart" style="width: 100%; height: 600px;"></div>
+
+    <script>
+        // Meses del análisis
+        const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+        // Tasa de éxito mensual (en porcentaje, simulada)
+        const tasasExito = [95, 92, 93, 94, 96, 97, 96, 98, 97, 96, 94, 95];
+
+        // Línea de tendencia (puede ser suavizada si es necesario)
+        const lineaTendencia = tasasExito.map((_, i, arr) => {
+            const suma = arr.slice(0, i + 1).reduce((a, b) => a + b, 0);
+            return suma / (i + 1); // Promedio acumulativo
+        });
+
+        // Configuración de las barras (tasa de éxito mensual)
+        const trace1 = {
+            x: meses,
+            y: tasasExito,
+            type: 'bar',
+            name: 'Tasa de Éxito (%)',
+            marker: { color: 'rgba(44, 160, 44, 0.8)' }
+        };
+
+        // Configuración de la línea de tendencia
+        const trace2 = {
+            x: meses,
+            y: lineaTendencia,
+            type: 'scatter',
+            mode: 'lines+markers',
+            name: 'Línea de Tendencia',
+            line: { color: 'rgba(31, 119, 180, 0.8)', width: 2 },
+            marker: { size: 8 }
+        };
+
+        // Configuración del diseño
+        const layout = {
+            title: 'Tasa de Éxito en la Inducción Anestésica (Mensual)',
+            xaxis: {
+                title: 'Meses',
+                tickangle: -45
+            },
+            yaxis: {
+                title: 'Tasa de Éxito (%)',
+                range: [85, 100] // Ajustado para los valores simulados
+            },
+            margin: { t: 50, b: 100 },
+            barmode: 'group',
+            legend: {
+                orientation: 'h',
+                x: 0.5,
+                xanchor: 'center',
+                y: -0.2
+            }
+        };
+
+        // Renderiza el gráfico en la página
+        Plotly.newPlot('successRateChart', [trace1, trace2], layout);
+    </script>
+</body>
+</html>
